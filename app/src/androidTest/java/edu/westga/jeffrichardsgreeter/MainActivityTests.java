@@ -7,6 +7,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
+ * Tests for greeter
+ *
  * Created by Jeff on 2/29/2016.
  */
 public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActivity> {
@@ -41,5 +43,11 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
 
         String actualText = greetMessage.getText().toString();
         assertEquals("Hello, Jake!", actualText);
+    }
+
+    public void testReverseEnabled() {
+        MainActivity activity = getActivity();
+        Button reverseButton = (Button) activity.findViewById(R.id.reverse_button);
+        assertFalse(reverseButton.isEnabled());
     }
 }

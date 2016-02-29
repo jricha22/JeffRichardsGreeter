@@ -62,4 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         messageTextView.setText(greeting);
     }
+
+    public void didTapReverseButton(View view) {
+    }
 }
