@@ -32,7 +32,6 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
         });
 
         getInstrumentation().waitForIdleSync();
-        System.out.println(name);
         getInstrumentation().sendStringSync(name);
 
         Button greetButton = (Button) activity.findViewById(R.id.greet_button);
@@ -45,7 +44,7 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
         addNameAndPushGreet(activity, "Jake");
         TextView greetMessage = (TextView) activity.findViewById(R.id.message_text_view);
         String actualText = greetMessage.getText().toString();
-        assertEquals(actualText, "Hello, Jake!");
+        assertEquals("Hello, Jake!", actualText);
     }
 
     public void testReverseEnabled() {
@@ -59,5 +58,15 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
         addNameAndPushGreet(activity, "Fred");
         Button reverseButton = (Button) activity.findViewById(R.id.reverse_button);
         assertTrue(reverseButton.isEnabled());
+    }
+
+    public void testStringIsReversedAfterReversePressed() {
+        MainActivity activity = getActivity();
+        addNameAndPushGreet(activity, "Jake");
+        Button reverseButton = (Button) activity.findViewById(R.id.reverse_button);
+        TouchUtils.clickView(this, reverseButton);
+        TextView greetMessage = (TextView) activity.findViewById(R.id.message_text_view);
+        String actualText = greetMessage.getText().toString();
+        assertEquals("!ekaJ ,olleH", actualText);
     }
 }

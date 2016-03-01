@@ -68,5 +68,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void didTapReverseButton(View view) {
+        TextView messageTextView = (TextView) findViewById(R.id.message_text_view);
+        StringBuilder my_builder = new StringBuilder(messageTextView.getText().toString());
+        messageTextView.setText(my_builder.reverse().toString());
     }
 }
