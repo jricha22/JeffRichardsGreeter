@@ -22,8 +22,7 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
         assertNotNull(activity);
     }
 
-    public void testGreet() {
-        MainActivity activity = getActivity();
+    private void addNameAndPushGreet(MainActivity activity, String name) {
         final EditText nameEditText = (EditText) activity.findViewById(R.id.greet_edit_text);
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
@@ -33,16 +32,20 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
         });
 
         getInstrumentation().waitForIdleSync();
-        getInstrumentation().sendStringSync("Jake");
+        System.out.println(name);
+        getInstrumentation().sendStringSync(name);
 
         Button greetButton = (Button) activity.findViewById(R.id.greet_button);
 
         TouchUtils.clickView(this, greetButton);
+    }
 
+    public void testGreet() {
+        MainActivity activity = getActivity();
+        addNameAndPushGreet(activity, "Jake");
         TextView greetMessage = (TextView) activity.findViewById(R.id.message_text_view);
-
         String actualText = greetMessage.getText().toString();
-        assertEquals("Hello, Jake!", actualText);
+        assertEquals(actualText, "Hello, Jake!");
     }
 
     public void testReverseEnabled() {
@@ -53,21 +56,7 @@ public class MainActivityTests extends ActivityInstrumentationTestCase2<MainActi
 
     public void testReverseEnabledAfterGreet() {
         MainActivity activity = getActivity();
-        final EditText nameEditText = (EditText) activity.findViewById(R.id.greet_edit_text);
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                nameEditText.requestFocus();
-            }
-        });
-
-        getInstrumentation().waitForIdleSync();
-        getInstrumentation().sendStringSync("Jake");
-
-        Button greetButton = (Button) activity.findViewById(R.id.greet_button);
-
-        TouchUtils.clickView(this, greetButton);
-
+        addNameAndPushGreet(activity, "Fred");
         Button reverseButton = (Button) activity.findViewById(R.id.reverse_button);
         assertTrue(reverseButton.isEnabled());
     }
