@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         EditText greetEditText = (EditText) findViewById(R.id.greet_edit_text);
 
         String name = greetEditText.getText().toString();
-        String greeting = String.format("Hello, %s!", name);
+        String greeting = String.format("Hi There, %s!", name);
 
         TextView messageTextView = (TextView) findViewById(R.id.message_text_view);
 
